@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      value: "",
+    };
+  }
+
+  submit = () => {
+    const inputVal = document.getElementById("txtInput").value;
+    this.setState({ value: inputVal });
+  };
+
+  clickedEnter = (e) => {
+    console.log(e);
+    const input = document.getElementById("txtInput");
+
+    if (e.key === "Enter") {
+      this.setState({ value: input.value });
+    } else if (e.key === "Backspace") {
+      this.setState({ value: input.value });
+    }
+  };
+  render() {
+    return (
+      <div className="container">
+        <h1>A Message You Would Like To Pass</h1>
+        <input type="text" id="txtInput" onKeyUp={this.clickedEnter} />
+        <button id="submit" onClick={this.submit}>
+          SUBMIT
+        </button>
+        <p className="error">Please Enter A Value To Pass</p>
+        <h2 style={{ color: "black" }}>Last Message Delivered</h2>
+        <p className="output">{this.state.value}</p>
+      </div>
+    );
+  }
 }
 
 export default App;
